@@ -3,6 +3,19 @@ import Slider from "@react-native-community/slider";
 import { useState } from "react";
 export default function App() {
   const [size, setSize] = useState(10);
+  const [passwordValue, setPasswordValue] = useState("");
+
+    let charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+  function generatePassword() {
+    let password = "";
+
+    for(let i = 0, n = charset.length; i < size; i++) {
+      password += charset.charAt(Math.floor(Math.random() * n));
+    }
+
+    setPasswordValue(password);
+  }
 
   return (
     <View style={styles.container}>
@@ -25,7 +38,7 @@ export default function App() {
         />
       </View>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={generatePassword}>
         <Text style={styles.buttonText}>Gerar senha</Text>
       </TouchableOpacity>
     </View>
