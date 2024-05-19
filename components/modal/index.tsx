@@ -5,6 +5,8 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
+import * as Clipboard from 'expo-clipboard'
+
 
 type Props = {
   passwordValue: string;
@@ -13,12 +15,21 @@ type Props = {
 
 
 export function ModalPassword({passwordValue, handleClose} : Props) {    
+
+
+  async function handleCopyPassword() {
+    await Clipboard.setStringAsync(passwordValue);
+    alert("Senha copiada com sucesso!");
+    handleClose();
+  }
+
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Senha gerada</Text>
 
-        <Pressable style={styles.innerPassword}>
+        <Pressable style={styles.innerPassword} onPress={handleCopyPassword}>
           <Text style={styles.text}>{passwordValue}</Text>
         </Pressable>
 
